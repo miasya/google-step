@@ -2,17 +2,89 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Miasya's Website</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="script.js"></script>
+
+    <!-- Top Navigation Menu ref: W3Schools-->
+    <div class="topnav">
+      <a href="#home" class="active">Home</a>
+      <!-- Navigation links (hidden by default) -->
+      <div id="myLinks">
+        <a href="#news">Login</a>
+        <a href="#contact">About</a>
+        <a href="#about">Contact</a>
+      </div>
+      <!-- "Bar icon" to toggle the navigation links -->
+      <a href="javascript:void(0);" class="icon" onclick="navBar()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
   </head>
+
   <body>
     <div id="content">
-      <h1>My Portfolio</h1>
-      <p>This is my portfolio.</p>
-      <p>Click here to get a random message:</p>
+      <!-- Introduction -->
+      <h1>Family Recipes</h1>
       <button onclick="addRandomGreeting()">Hello</button>
       <div id="greeting-container"></div>
+      <img src="../images/family-cover.jpg" alt="Family" style="width:100%;">
+      <p>Welcome! 👋<br></br>Here I will upload family recipes. Eventually I will add more pages, a comments section, log in functionality, and potentially image upload functionality. </p>
+    
+      <!-- Bunch of images - move into separate file later? -->
+      <div class="gallery">
+        <a target="_blank" href="../images/eggrolls.jpg" >
+          <img src="../images/eggrolls.jpg" alt="Eggrolls">
+        </a>
+        <div class="desc">Friend Tom Nitio's Eggrolls</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="../images/shortbread.jpg">
+          <img src="../images/shortbread.jpg" alt="Cookies">
+        </a>
+        <div class="desc">Nanny's Shortbread Cookies</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="../images/rice.jpg">
+          <img src="../images/rice.jpg" alt="Cinque Terre">
+        </a>
+        <div class="desc">Lifeng's Famous Stir-Fried Rice</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="img_5terre.jpg">
+          <img src="../images/tuna-1.jpg" alt="Recipe card">
+          <!-- <img src="../images/tuna-2.jpg" alt="Recipe card"> -->
+        </a>
+        <div class="desc">Nanny's Tuna Casserole</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="img_5terre.jpg">
+          <img src="../images/gumdrop-1.jpg" alt="Recipe card">
+          <!-- <img src="../images/gumdrop-2.jpg" alt="Recipe card"> -->
+        </a>
+        <div class="desc">Nanny's Gumdrop Cake</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="img_5terre.jpg">
+          <img src="../images/chicken-ala-1.jpg" alt="Recipe card">
+          <!-- <img src="../images/chicken-ala-2.jpg" alt="Recipe card"> -->
+        </a>
+        <div class="desc">Nanny's Chicken A La King</div>
+      </div>
+
+      <div class="gallery">
+        <a target="_blank" href="../images/miasya.jpg">
+          <img src="../images/miasya.jpg" alt="Miasya on laptop" width="600" height="400">
+        </a>
+        <div class="desc">More to come!</div>
+      </div>
+
     </div>
   </body>
 </html>
