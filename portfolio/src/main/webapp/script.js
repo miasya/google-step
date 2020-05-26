@@ -17,7 +17,7 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['will play board games with you any day', 'really likes tacos', 'is probably studying', 'sends hugs!', 'is seeking book recommendations', 'has wanderlust'];
+      ['Hello!', 'Bonjour!', 'هتاف للترحيب', 'Cześć!', '你好！'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
