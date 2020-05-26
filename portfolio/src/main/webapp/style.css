@@ -10,26 +10,8 @@ h1 {
   margin-left: auto;
   margin-right: auto;
   width: 100vw;
-  max-width: 1040px;
+  max-width: 960px;
   align-content: center;
-}
-
-a {
-  background:
-     linear-gradient(
-       to bottom, var(--mainColor) 0%,
-       var(--mainColor) 100%
-     );
-    background-position: 0 100%;
-    background-repeat: repeat-x;
-    background-size: 2px 0px;
-  color: #000;
-  text-decoration: none;
-  transition: background-size .2s;
-}
-
-a:hover {
-  background-size: 4px 50px;
 }
 
 /* Style the navigation menu */
@@ -39,6 +21,9 @@ a:hover {
   position: sticky;
   top: 0px;
   border-bottom: 2px solid #89CFF0;
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Style the links inside the navigation bar */
@@ -49,6 +34,20 @@ a:hover {
   padding: 14px 16px;
   text-decoration: none;
   font-size: 16x;
+  background:
+     linear-gradient(
+       to bottom, var(--mainColor) 0%,
+       var(--mainColor) 100%
+     );
+    background-position: 0 100%;
+    background-repeat: repeat-x;
+    background-size: 2px 0px;
+  color: #000;
+  transition: background-size .2s;
+}
+
+.topnav a:hover{
+  background-size: 4px 50px;
 }
 
 /* Hide the link that should open and close the topnav on small screens */
@@ -95,7 +94,7 @@ a:hover {
   -ms-flex: 1;
   flex: 1;
   width: 100%;
-  padding: 5px;
+  padding: 10px;
 }
 
 /* Responsive layout - small screen? make the three columns stack on top of each other instead of next to each other */
@@ -113,8 +112,8 @@ div.gallery {
 }
 
 div.gallery:hover {
-  border: 1pz solid black;
-  box-shadow: 0px 0px 2px black;
+  border: 1px solid grey;
+  box-shadow: 0px 0px 5px grey;
 }
 
 div.gallery img {
@@ -128,5 +127,9 @@ div.desc {
 }
 
 footer {
+  max-width: 960px;
+  margin-left: auto;
+  margin-right: auto;
   border-bottom: 2px solid #89CFF0;
+  text-align: center;
 }
