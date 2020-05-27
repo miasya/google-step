@@ -17,7 +17,7 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['Hello!', 'Bonjour!', 'هتاف للترحيب', 'Cześć!', '你好！'];
+      ['I will work soon I promise!', 'feature to be added!', 'not possible yet but just wait!'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];

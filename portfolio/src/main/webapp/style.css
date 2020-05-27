@@ -4,13 +4,24 @@
 
 * {box-sizing:border-box}
 
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 h1 {
+  text-align: center;
+}
+
+h2 {
   text-align: center;
 }
 
 #webpage {
   background-image: linear-gradient(to bottom right, #b3ecec, #d5a6e6);
-  
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 #content {
@@ -234,9 +245,30 @@ div.desc {
 }
 
 /* **************** */
+/* Button styling   */
+#buttonBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
 
+button {
+  border: 1px solid #cd8de5;
+  transition-duration: 0.2s;
+  padding: 5px 5px;
+  font-size: 16px;
+  background-color: #dfc0eb;
+  box-shadow: 0px 0px 2px grey;
+  margin: auto;
+}
+
+button:hover {
+  background-color: #cd8de5;
+}
+
+/* **************** */
 footer {
- 
-  border-bottom: 2px solid #89CFF0;
+  border-top: 2px solid #89CFF0;
   text-align: center;
 }

@@ -26,9 +26,7 @@
       <body>
           <!-- Introduction -->
         <h1>Family Recipes</h1>
-        <button onclick="addRandomGreeting()">Hello</button>
-        <div id="greeting-container"></div>
-
+        
         <!-- Slideshow container -->
         <div class="slideshow-container">
 
@@ -66,9 +64,14 @@
         <script>
           showSlides(slideIndex);
         </script>
-
+        <br></br>
         <p>Welcome! 👋<br></br>Here I will upload family recipes. Eventually I will add more pages, a comments section, log in functionality, and potentially image upload functionality. </p>
       
+        <br></br>
+        <div style="border-top: 1px solid #89CFF0">
+          <h2>Featured Recipes</h2>
+        </div>
+
         <!-- Several rows of images, each with 3 columns, where each column contains an image + subtitle -->
         <!-- TODO: Have links (in <a></a>) nav to actual pages -->
         <div class="row">
@@ -104,17 +107,7 @@
         <div class="row">
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="img_5terre.jpg">
-                <img src="../images/tuna-1.jpg" alt="Recipe card">
-                <!-- <img src="../images/tuna-2.jpg" alt="Recipe card"> -->
-              </a>
-              <div class="desc">Nanny's Tuna Casserole</div>
-            </div>
-          </div>
-
-          <div class="column">
-            <div class="gallery">
-              <a target="_blank" href="img_5terre.jpg">
+              <a target="_blank" href="../images/gumdrop-1.jpg">
                 <img src="../images/gumdrop-1.jpg" alt="Recipe card">
                 <!-- <img src="../images/gumdrop-2.jpg" alt="Recipe card"> -->
               </a>
@@ -124,33 +117,45 @@
 
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="img_5terre.jpg">
+              <a target="_blank" href="../images/chicken-ala-1.jpg">
                 <img src="../images/chicken-ala-1.jpg" alt="Recipe card">
                 <!-- <img src="../images/chicken-ala-2.jpg" alt="Recipe card"> -->
               </a>
               <div class="desc">Nanny's Chicken A La King</div>
             </div>
           </div>
-        </div>
 
-        <!-- Last row -->
-        <div class="row">
           <div class="column">
             <div class="gallery">
               <a target="_blank" href="../images/miasya.jpg">
-                <img src="../images/miasya.jpg" alt="Miasya on laptop" width="600" height="400">
+                <img src="../images/miasya.jpg" alt="Miasya on laptop">
               </a>
               <div class="desc">More to come!</div>
             </div>
           </div>
-          <div class="column"></div>
-          <div class="column"></div>
-        </div>  
+        </div>
+
+        <div id="buttonBox">
+          <button onclick="addRandomGreeting()">Random Recipe</button>
+        </div>
+        <div id="greeting-container"></div>
+
+        <br></br>
+        <!-- Ottawa Image -->
+        <div style="border-top: 1px solid #89CFF0">
+          <h2>Made with 💜</h2>
+          <a target="_blank" href="../images/ottawa.jpg">
+            <img src="../images/ottawa.jpg" alt="Miasya on laptop" width="40%"></img>
+          </a>
+          <br></br>
+        </div>
       </body>
+
+      <!-- Footer -->
       <footer>
         <p>Thanks for visiting!</p>
       </footer>
     </div>
-   <br></br>
+    <br></br>
   </div>
 </html>
