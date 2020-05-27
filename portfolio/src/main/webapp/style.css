@@ -4,6 +4,9 @@
 
 * {box-sizing:border-box}
 
+
+/*TODO: look at css style guide for guidance */
+
 img {
   display: block;
   margin-left: auto;
