@@ -88,9 +88,9 @@ function showRandomWord() {
 }
 
 function showDef() {
-  const defList = ['mysterious, obscure\nA couple of months ago, Mr. Niobe submitted a thesis with his analysis and computations — a fairly esoteric mathematical dissent about how best to gather rational generalizations on the origin of the universe theory.',
-    'intended to teach, educational\nThough more didactic, Rama’s story of the triumph over evil and of a king’s dharma and nobility is quite powerful and enchanting.',
-    'optimistic or positive\nAmong those who remain sanguine about the nation’s economic revival, there is always the lively topic of tax reduction policies, the remedy to deflationary recession in the United States.'];
+  const defList = ['mysterious, obscure\nA couple of months ago, XYZ submitted a thesis with their analysis and computations — a fairly esoteric mathematical dissent about how best to gather rational generalizations on the origin of the universe theory.',
+    'intended to teach, educational\nThough more didactic, XYZ’s story of the triumph over evil quite powerful and enchanting.',
+    'optimistic or positive\nAmong those who remain sanguine about the nation’s economic revival, there is always the lively topic of tax reduction policies.'];
 
   const defBox = document.getElementById('def-box');
   defBox.innerText = defList[wordIndex];
