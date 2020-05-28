@@ -66,3 +66,32 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
 }
+
+
+// Random word card display
+var wordIndex = 1;
+
+showRandomWord();
+
+function showRandomWord() {
+  const wordList = ['Esoteric', 'Didactic', 'Sanguine'];
+
+  wordIndex = Math.floor(Math.random() * wordList.length);
+  
+  // update word
+  const wordBox = document.getElementById('word-box');
+  wordBox.innerText = wordList[wordIndex];
+  
+  // remove old definition
+  const defBox = document.getElementById('def-box');
+  defBox.innerText = '';
+}
+
+function showDef() {
+  const defList = ['mysterious, obscure\nA couple of months ago, Mr. Niobe submitted a thesis with his analysis and computations — a fairly esoteric mathematical dissent about how best to gather rational generalizations on the origin of the universe theory.',
+    'intended to teach, educational\nThough more didactic, Rama’s story of the triumph over evil and of a king’s dharma and nobility is quite powerful and enchanting.',
+    'optimistic or positive\nAmong those who remain sanguine about the nation’s economic revival, there is always the lively topic of tax reduction policies, the remedy to deflationary recession in the United States.'];
+
+  const defBox = document.getElementById('def-box');
+  defBox.innerText = defList[wordIndex];
+}
