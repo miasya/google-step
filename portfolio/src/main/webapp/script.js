@@ -12,6 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+fetch("header.html")
+  .then(response => {
+    return response.text();
+  })
+  .then(data => {
+    document.querySelector("header").innerHTML = data;
+  });
+
+fetch("footer.html")
+  .then(response => {
+    return response.text();
+  })
+  .then(data => {
+    document.querySelector("footer").innerHTML = data;
+  });
+
 /**
  * Adds a random greeting to the page.
  */
