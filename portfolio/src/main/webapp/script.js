@@ -12,12 +12,29 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+fetch('header.html')
+  .then(response => {
+    return response.text();
+  })
+  .then(data => {
+    document.querySelector('header').innerHTML = data;
+  });
+
+fetch('footer.html')
+  .then(response => {
+    return response.text();
+  })
+  .then(data => {
+    document.querySelector('footer').innerHTML = data;
+  });
+
 /**
  * Adds a random greeting to the page.
  */
 function addRandomGreeting() {
   const greetings =
-      ['Hello!', 'Bonjour!', 'هتاف للترحيب', 'Cześć!', '你好！'];
+      ['I will work soon I promise!', 'feature to be added!', 'not possible yet but just wait!'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
@@ -65,4 +82,33 @@ function showSlides(n) {
   }
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
+}
+
+
+// Random word card display
+var wordIndex = 1;
+
+showRandomWord();
+
+function showRandomWord() {
+  const wordList = ['Esoteric', 'Didactic', 'Sanguine'];
+
+  wordIndex = Math.floor(Math.random() * wordList.length);
+  
+  // update word
+  const wordBox = document.getElementById('word-box');
+  wordBox.innerText = wordList[wordIndex];
+  
+  // remove old definition
+  const defBox = document.getElementById('def-box');
+  defBox.innerText = '';
+}
+
+function showDef() {
+  const defList = ['mysterious, obscure\nA couple of months ago, XYZ submitted a thesis with their analysis and computations — a fairly esoteric mathematical dissent about how best to gather rational generalizations on the origin of the universe theory.',
+    'intended to teach, educational\nThough more didactic, XYZ’s story of the triumph over evil quite powerful and enchanting.',
+    'optimistic or positive\nAmong those who remain sanguine about the nation’s economic revival, there is always the lively topic of tax reduction policies.'];
+
+  const defBox = document.getElementById('def-box');
+  defBox.innerText = defList[wordIndex];
 }

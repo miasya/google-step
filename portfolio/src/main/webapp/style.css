@@ -1,57 +1,78 @@
 :root {
-  --mainColor: #89CFF0;
+  --accent-color: #ffde7085;
+  --accent-color-dark: #ffde70a4;
+  --main-color: #8f3ade49;
+  --main-color-dark: #8f3adea1;
+  --main-color-light: #8f3ade1a;
+  --background-color-1: #ffde7075;
+  --background-color-2: #ff333670;
+  --background-color-3: #8f3ade65;
+  --white-color: #FEFEFE;
 }
 
-* {box-sizing:border-box}
+/*TODO: look at css style guide for guidance */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
 
 h1 {
   text-align: center;
 }
 
+h2 {
+  text-align: center;
+}
+
+a {
+  color: var(--main-color-dark);
+}
+
 #webpage {
-  background-image: linear-gradient(to bottom right, #b3ecec, #d5a6e6);
-  
+  background-image: linear-gradient(153deg, var(--background-color-1) 0%, var(--background-color-2) 42%, var(--background-color-3) 100%);
+  color: black;
+  min-height: 100vh;
+  min-width: 100vw;
 }
 
 #content {
+  align-content: center;
+  background-color: var(--white-color);
+  box-shadow: 0px 0px 10px grey;
   margin-left: auto;
   margin-right: auto;
-  width: 100vw;
   max-width: 960px;
-  align-content: center;
-  background-color: white;
-  box-shadow: 0px 0px 10px grey;
   padding: 5%;
+  width: 100vw;
 }
 
 /* **************** */
 /* navigation style */
 .topnav {
   background-color: rgba(255, 255, 255, 0.685);
+  border-bottom: 2px solid var(--main-color);
   overflow: hidden;
   position: relative;
-  /*top: 0px;*/
-  border-bottom: 2px solid #89CFF0;
-  
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
-  float: left;
-  display: block;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 16x;
   background:
      linear-gradient(
-       to bottom, var(--mainColor) 0%,
-       var(--mainColor) 100%
+       to bottom, var(--main-color) 0%,
+       var(--main-color) 100%
      );
     background-position: 0 100%;
     background-repeat: repeat-x;
     background-size: 2px 0px;
-  color: #000;
+  color: #1c2327;
+  display: block;
+  float: left;
+  font-size: 16x;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
   transition: background-size .2s;
 }
 
@@ -96,9 +117,9 @@ h1 {
 /* **************** */
 /* Slideshow styles */
 .slideshow-container {
-  width: 80%;
-  position: relative;
   margin: auto;
+  position: relative;
+  width: 80%;
 }
 
 /* Hide the images by default */
@@ -108,65 +129,65 @@ h1 {
 
 /* Next & previous buttons */
 .prev, .next {
+  border-radius: 0 3px 3px 0;
+  color: var(--white-color);
   cursor: pointer;
-  position: absolute;
-  top: 50%;
-  width: auto;
+  font-size: 18px;
+  font-weight: bold;
   margin-top: -22px;
   padding: 16px;
-  color: white;
-  font-weight: bold;
-  font-size: 18px;
-  transition: 0.6s ease;
-  border-radius: 0 3px 3px 0;
+  position: absolute;
+  top: 50%;
+  transition: 0.5s ease;
   user-select: none;
+  width: auto;
 }
 
 /* Position the "next button" to the right */
 .next {
-  right: 0;
   border-radius: 3px 0 0 3px;
+  right: 0;
 }
 
-/* On hover, add a black background color with a little bit see-through */
+/* When you hover the prev/fwd buttons, colour them */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.8);
+  background-color: rgba(0, 0, 0, 0.9);
 }
 
 /* Caption text */
 .text {
-  color: #f2f2f2;
+  bottom: 8px;
+  color: var(--white-color);
   font-size: 15px;
   padding: 8px 12px;
   position: absolute;
-  bottom: 8px;
-  width: 100%;
   text-align: center;
+  width: 100%;
 }
 
 /* Number text (1/3 etc) */
 .numbertext {
-  color: #f2f2f2;
+  color: white;
   font-size: 12px;
   padding: 8px 12px;
   position: absolute;
   top: 0;
 }
 
-/* The dots/bullets/indicators */
+/* The dots below the slides */
 .dot {
-  cursor: pointer;
-  height: 10px;
-  width: 10px;
-  margin: 0 2px;
-  background-color: #89CFF0;
+  background-color: var(--main-color);
   border-radius: 50%;
+  cursor: pointer;
   display: inline-block;
+  height: 10px;
+  margin: 0 2px;
   transition: background-color 0.6s ease;
+  width: 10px;
 }
 
 .active, .dot:hover {
-  background-color: rgb(130, 193, 223);
+  background-color: var(--main-color-dark);
 }
 
 /* Fading animation */
@@ -199,8 +220,8 @@ h1 {
   -webkit-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  width: 100%;
   padding: 10px;
+  width: 100%;
 }
 
 /* Responsive layout - small screen? make the three columns stack on top of each other instead of next to each other */
@@ -214,18 +235,18 @@ h1 {
 /* **************** */
 /* Recipe box style */
 div.gallery {
+  border-bottom: 1px solid var(--accent-color);
   width: 100%;
-  border-bottom: 1px solid #FFC0CB;
 }
 
 div.gallery:hover {
-  border-bottom: 1px solid #FFC0CB;
+  border-bottom: 1px solid var(--accent-color);
   box-shadow: 0px 0px 5px grey;
 }
 
 div.gallery img {
-  width: 100%;
   height: auto;
+  width: 100%;
 }
 
 div.desc {
@@ -234,9 +255,45 @@ div.desc {
 }
 
 /* **************** */
+/* Button styling   */
+#buttonBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
 
+button {
+  background-color: var(--accent-color);
+  border: 1px solid grey;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px grey;
+  font-size: 16px;
+  margin: auto;
+  padding: 5px 5px;
+  transition-duration: 0.1s;
+}
+
+button:hover {
+  background-color: var(--accent-color-dark);
+}
+
+#cue-card {
+  background-color: var(--main-color-light);
+  box-shadow: 0px 0px 2px grey;
+  border-radius: 3px;
+  display: block;
+  height: 200px;
+  padding: 10px;
+  position: relative;
+}
+
+#word-box {
+  font-weight: bold;
+}
+
+/* **************** */
 footer {
- 
-  border-bottom: 2px solid #89CFF0;
+  border-top: 2px solid var(--main-color);
   text-align: center;
 }

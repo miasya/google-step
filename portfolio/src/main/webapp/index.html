@@ -3,36 +3,24 @@
   <div id="webpage">
     <br></br>
     <div id="content">
+      
       <head>
         <meta charset="UTF-8">
         <title>Miasya's Website</title>
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="script.js"></script>
-
-        <!-- Top Navigation Menu ref: W3Schools-->
-        <div class="topnav" id="myTopnav">
-          <a href="index.html" class="active">Home</a>
-          <a href="#login">Login</a>
-          <a href="about.html">About</a>
-          <a href="contact.html">Contact</a>
-      
-          <a href="javascript:void(0);" class="icon" onclick="navBar()">
-            <i class="fa fa-bars"></i>
-          </a>
-        </div>
       </head>
+
+      <header></header>
 
       <body>
           <!-- Introduction -->
         <h1>Family Recipes</h1>
-        <button onclick="addRandomGreeting()">Hello</button>
-        <div id="greeting-container"></div>
-
+        
         <!-- Slideshow container -->
         <div class="slideshow-container">
-
-          <!-- Full-width images with number and caption text -->
+          <!-- Images with subtitles -->
           <div class="mySlides fade">
             <div class="numbertext">1 / 3</div>
             <img src="../images/family-1.jpg" alt="Family" style="width:100%">
@@ -56,25 +44,31 @@
           <a class="next" onclick="plusSlides(1)">&#10095;</a>
         </div>
 
-        <!-- The dots/circles -->
+        <!-- Dots to also help navigate between slides -->
         <div style="text-align:center">
           <span class="dot" onclick="currentSlide(1)"></span>
           <span class="dot" onclick="currentSlide(2)"></span>
           <span class="dot" onclick="currentSlide(3)"></span>
         </div>
-
+        
+        <!-- Make sure slideshow appears immediately on page load -->
         <script>
           showSlides(slideIndex);
         </script>
+        <br></br>
 
         <p>Welcome! 👋<br></br>Here I will upload family recipes. Eventually I will add more pages, a comments section, log in functionality, and potentially image upload functionality. </p>
-      
+        <br></br>
+        <div style="border-top: 1px solid #ff333670">
+          <h2>Featured Recipes</h2>
+        </div>
+
         <!-- Several rows of images, each with 3 columns, where each column contains an image + subtitle -->
         <!-- TODO: Have links (in <a></a>) nav to actual pages -->
         <div class="row">
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="../images/eggrolls.jpg" >
+              <a href="./recipes/recipe-1.html">
                 <img src="../images/eggrolls.jpg" alt="Eggrolls">
               </a>
               <div class="desc">Friend Tom Nitio's Eggrolls</div>
@@ -83,7 +77,7 @@
 
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="../images/shortbread.jpg">
+              <a href="./recipes/recipe-1.html">
                 <img src="../images/shortbread.jpg" alt="Cookies">
               </a>
               <div class="desc">Nanny's Shortbread Cookies</div>
@@ -92,7 +86,7 @@
 
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="../images/rice.jpg">
+              <a href="./recipes/recipe-1.html">
                 <img src="../images/rice.jpg" alt="Cinque Terre">
               </a>
               <div class="desc">Lifeng's Famous Stir-Fried Rice</div>
@@ -104,17 +98,7 @@
         <div class="row">
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="img_5terre.jpg">
-                <img src="../images/tuna-1.jpg" alt="Recipe card">
-                <!-- <img src="../images/tuna-2.jpg" alt="Recipe card"> -->
-              </a>
-              <div class="desc">Nanny's Tuna Casserole</div>
-            </div>
-          </div>
-
-          <div class="column">
-            <div class="gallery">
-              <a target="_blank" href="img_5terre.jpg">
+              <a href="./recipes/recipe-1.html">
                 <img src="../images/gumdrop-1.jpg" alt="Recipe card">
                 <!-- <img src="../images/gumdrop-2.jpg" alt="Recipe card"> -->
               </a>
@@ -124,33 +108,42 @@
 
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="img_5terre.jpg">
+              <a href="./recipes/recipe-1.html">
                 <img src="../images/chicken-ala-1.jpg" alt="Recipe card">
                 <!-- <img src="../images/chicken-ala-2.jpg" alt="Recipe card"> -->
               </a>
               <div class="desc">Nanny's Chicken A La King</div>
             </div>
           </div>
-        </div>
 
-        <!-- Last row -->
-        <div class="row">
           <div class="column">
             <div class="gallery">
-              <a target="_blank" href="../images/miasya.jpg">
-                <img src="../images/miasya.jpg" alt="Miasya on laptop" width="600" height="400">
+              <a href="./recipes/recipe-1.html">
+                <img src="../images/miasya.jpg" alt="Miasya on laptop">
               </a>
               <div class="desc">More to come!</div>
             </div>
           </div>
-          <div class="column"></div>
-          <div class="column"></div>
-        </div>  
+        </div>
+
+        <div id="buttonBox">
+          <button onclick="addRandomGreeting()">Random Recipe</button>
+        </div>
+        <div id="greeting-container"></div>
+
+        <br></br>
+        <!-- Ottawa Image -->
+        <div style="border-top: 1px solid #ff333670">
+          <h2>Made with 💜</h2>
+          <a target="_blank" href="../images/ottawa.jpg">
+            <img src="../images/ottawa.jpg" alt="Ottawa" width="40%"></img>
+          </a>
+          <br></br>
+        </div>
       </body>
-      <footer>
-        <p>Thanks for visiting!</p>
-      </footer>
+    
+      <footer></footer>
     </div>
-   <br></br>
+    <br></br>
   </div>
 </html>
