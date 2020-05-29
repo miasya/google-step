@@ -1,5 +1,13 @@
 :root {
-  --mainColor: #a4e5fb;
+  --accent-color: #ffde7085;
+  --accent-color-dark: #ffde70a4;
+  --main-color: #8f3ade49;
+  --main-color-dark: #8f3adea1;
+  --main-color-light: #8f3ade1a;
+  --background-color-1: #ffde7075;
+  --background-color-2: #ff333670;
+  --background-color-3: #8f3ade65;
+  --white-color: #FEFEFE;
 }
 
 /*TODO: look at css style guide for guidance */
@@ -17,16 +25,20 @@ h2 {
   text-align: center;
 }
 
+a {
+  color: var(--main-color-dark);
+}
+
 #webpage {
-  background-image: linear-gradient(to bottom right, #b3ecec, #d5a6e6);
-  color: #1c2327;
+  background-image: linear-gradient(153deg, var(--background-color-1) 0%, var(--background-color-2) 42%, var(--background-color-3) 100%);
+  color: black;
   min-height: 100vh;
   min-width: 100vw;
 }
 
 #content {
   align-content: center;
-  background-color: white;
+  background-color: var(--white-color);
   box-shadow: 0px 0px 10px grey;
   margin-left: auto;
   margin-right: auto;
@@ -39,7 +51,7 @@ h2 {
 /* navigation style */
 .topnav {
   background-color: rgba(255, 255, 255, 0.685);
-  border-bottom: 2px solid #b4dff5;
+  border-bottom: 2px solid var(--main-color);
   overflow: hidden;
   position: relative;
 }
@@ -48,8 +60,8 @@ h2 {
 .topnav a {
   background:
      linear-gradient(
-       to bottom, var(--mainColor) 0%,
-       var(--mainColor) 100%
+       to bottom, var(--main-color) 0%,
+       var(--main-color) 100%
      );
     background-position: 0 100%;
     background-repeat: repeat-x;
@@ -118,7 +130,7 @@ h2 {
 /* Next & previous buttons */
 .prev, .next {
   border-radius: 0 3px 3px 0;
-  color: white;
+  color: var(--white-color);
   cursor: pointer;
   font-size: 18px;
   font-weight: bold;
@@ -145,7 +157,7 @@ h2 {
 /* Caption text */
 .text {
   bottom: 8px;
-  color: #f2f2f2;
+  color: var(--white-color);
   font-size: 15px;
   padding: 8px 12px;
   position: absolute;
@@ -155,7 +167,7 @@ h2 {
 
 /* Number text (1/3 etc) */
 .numbertext {
-  color: #f2f2f2;
+  color: white;
   font-size: 12px;
   padding: 8px 12px;
   position: absolute;
@@ -164,7 +176,7 @@ h2 {
 
 /* The dots below the slides */
 .dot {
-  background-color: #89CFF0;
+  background-color: var(--main-color);
   border-radius: 50%;
   cursor: pointer;
   display: inline-block;
@@ -175,7 +187,7 @@ h2 {
 }
 
 .active, .dot:hover {
-  background-color: rgb(130, 193, 223);
+  background-color: var(--main-color-dark);
 }
 
 /* Fading animation */
@@ -223,12 +235,12 @@ h2 {
 /* **************** */
 /* Recipe box style */
 div.gallery {
-  border-bottom: 1px solid #FFC0CB;
+  border-bottom: 1px solid var(--accent-color);
   width: 100%;
 }
 
 div.gallery:hover {
-  border-bottom: 1px solid #FFC0CB;
+  border-bottom: 1px solid var(--accent-color);
   box-shadow: 0px 0px 5px grey;
 }
 
@@ -252,8 +264,8 @@ div.desc {
 }
 
 button {
-  background-color: #eddbf4;
-  border: 1px solid #cd8de5;
+  background-color: var(--accent-color);
+  border: 1px solid grey;
   border-radius: 2px;
   box-shadow: 0px 0px 2px grey;
   font-size: 16px;
@@ -263,12 +275,12 @@ button {
 }
 
 button:hover {
-  background-color: #d5a6e6;
+  background-color: var(--accent-color-dark);
 }
 
 #cue-card {
-  background-color: #edf7fd;
-  border: 1px solid #b4dff5;
+  background-color: var(--main-color-light);
+  box-shadow: 0px 0px 2px grey;
   border-radius: 3px;
   display: block;
   height: 200px;
@@ -282,6 +294,6 @@ button:hover {
 
 /* **************** */
 footer {
-  border-top: 2px solid #a4e5fb;
+  border-top: 2px solid var(--main-color);
   text-align: center;
 }
