@@ -34,7 +34,7 @@ fetch('footer.html')
 function getData() {
   fetch('/data').then(response => response.json()).then((comments) => {
     // reference its fields to create HTML content
-    const dataListElement = document.getElementById('data-container');
+    const dataListElement = document.getElementById('comments-container');
     dataListElement.innerHTML = '';
     var i;
     for (i = 0; i < comments.length; i++) {

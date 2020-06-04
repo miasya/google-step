@@ -6,16 +6,16 @@
       <head>
         <meta charset="UTF-8">
         <title>Miasya's Website</title>
-        <link rel="stylesheet" href="../style.css">
+        <link rel="stylesheet" href="./style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="../script.js"></script>
+        <script src="./script.js"></script>
       </head>
 
       <header></header>
 
-      <body>
+      <body onload="getData()">
         <h1>Friend Tom Nitio's Eggrolls</h1>
-        <img src="../images/eggrolls.jpg" alt="Food" width="80%"></img>
+        <img src="./images/eggrolls.jpg" alt="Food" width="80%"></img>
         <p>Tom Nitio's family was one of nanny and grandpa's first family friends when they made their move to Ottawa. Every summer, our family dedicates an entire day to make 100+ of these delicious eggrolls to enjoy. Can be frozen for long periods of time, and kept to satify cravings whenever desired!
         </p>
         <h2>Ingredients</h2>
@@ -34,11 +34,11 @@
         </ul>
         <br></br>
 
-        <div id="buttonBox">
-          <button onclick="addRandomGreeting()">Random Recipe</button>
-        </div>
-        <div id="greeting-container"></div>
-        </body>
+        <!-- TODO: Add button that navigates to random recipe -->
+
+        <!-- TODO: Potentially add nested div level of elements to store one comment at a time -->
+        </div class="comments-container"></div>
+      </body>
 
       <footer></footer>
     </div>
