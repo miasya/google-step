@@ -31,14 +31,16 @@ fetch('footer.html')
 /**
  * Fetches stats from the servers and adds them to the DOM.
  */
-function getData() {
+function getComments() {
   fetch('/data').then(response => response.json()).then((comments) => {
     // reference its fields to create HTML content
     const dataListElement = document.getElementById('comments-container');
     dataListElement.innerHTML = '';
     var i;
     for (i = 0; i < comments.length; i++) {
-      dataListElement.appendChild(createListElement(comments[i]));
+      console.log(i);
+      dataListElement.appendChild(
+        createListElement(comments[i]));
     }
   });
 }
