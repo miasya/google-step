@@ -206,6 +206,10 @@ a {
   to {opacity: 1}
 }
 
+#section-one {
+  border-top: 1px solid #b3ecec86
+}
+
 /* **************** */
 /* Row col styling  */
 .row {
