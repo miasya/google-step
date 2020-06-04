@@ -18,28 +18,40 @@
         <img src="./images/eggrolls.jpg" alt="Food" width="80%"></img>
         <p>Tom Nitio's family was one of nanny and grandpa's first family friends when they made their move to Ottawa. Every summer, our family dedicates an entire day to make 100+ of these delicious eggrolls to enjoy. Can be frozen for long periods of time, and kept to satify cravings whenever desired!
         </p>
-        <h2>Ingredients</h2>
+        <h2>Ingredients (100 eggrolls)</h2>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>2:1 ratio of ground pork to lean ground pork</li>
+          <li>1 head finely chopped round cabbage, remove excess juice</li>
+          <li>1 can waterchestnuts, drained and chopped</li>
+          <li>1 can bamboo shoots, drained and chopped</li>
+          <li>2 packs eggroll wraps</li>
+          <li>Sauces and salt to taste</li>
         </ul>
         <h2>Steps</h2>
         <ul>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
+          <li>Mix ingredients in a large bowl</li>
+          <li>Wrap a spoonful into each eggroll wrapper</li>
+          <li>Press the ends of the eggroll down with a fork</li>
+          <li>Deep fry until golden</li>
+          <li>Enjoy!</li>
         </ul>
         <br></br>
 
         <!-- TODO: Add button that navigates to random recipe -->
 
         <!-- TODO: Potentially add nested div level of elements to store one comment at a time -->
-        <button onclick="getComments()">Click to show comments</button>
-        <div id="comments-container">Comments will appear here</div>
-  
+        <button onclick="getComments()">Click to update comments list</button>
+        <div id="comments-container">No comments to date</div>
+
+        <!-- Form to add comments via POST request -->
+        <h2>Add a comment</h2>
+        <form action="/data" method="POST">
+          <p>Enter your comment below</p>
+          <textarea name="text-input">...</textarea>
+          <br/><br/>
+          <input type="submit" />
+        </form>
+
       </body>
 
       <footer></footer>

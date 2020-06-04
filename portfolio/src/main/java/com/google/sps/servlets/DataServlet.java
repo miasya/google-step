@@ -16,14 +16,15 @@ package com.google.sps.servlets;
 
 import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
- 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+
+/** Servlet that handles comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
  
@@ -32,9 +33,6 @@ public class DataServlet extends HttpServlet {
   @Override
   public void init() {
     comments = new ArrayList<>();
-    comments.add("Hypatia");
-    comments.add("Lovelace");
-    comments.add("Nightingale");
   }
  
   @Override
@@ -56,5 +54,34 @@ public class DataServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(comments);
     return json;
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // Get the input from the form.
+    String text = getParameter(request, "text-input", "");
+    comments.add(text);
+
+    // TODO: Add timestamp or other options to the comment
+
+    // Respond with the result.
+    response.setContentType("text/html;");
+    response.getWriter().println(text);
+
+     // Redirect back to the HTML page.
+     // TODO: Make this work with every recipe page when extra time(store the current page address)
+    response.sendRedirect("/recipe-1.html");
+  }
+
+  /**
+   * @return the request parameter, or the default value if the parameter
+   *         was not specified by the client
+   */
+  private String getParameter(HttpServletRequest request, String name, String defaultValue) {
+    String value = request.getParameter(name);
+    if (value == null) {
+      return defaultValue;
+    }
+    return value;
   }
 }
