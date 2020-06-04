@@ -15,6 +15,9 @@
 package com.google.sps.servlets;
 
 import com.google.gson.Gson;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
@@ -58,18 +61,21 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    // Get the input from the form.
-    String text = getParameter(request, "text-input", "");
-    comments.add(text);
+    
+    // Get the input from the form and a currenttimestamp
+    String text = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
 
-    // TODO: Add timestamp or other options to the comment
+    // Save as entity in Datastore
+    Entity taskEntity = new Entity("Task");
+    taskEntity.setProperty("text", text);
+    taskEntity.setProperty("timestamp", timestamp);
 
-    // Respond with the result.
-    response.setContentType("text/html;");
-    response.getWriter().println(text);
-
-     // Redirect back to the HTML page.
-     // TODO: Make this work with every recipe page when extra time(store the current page address)
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(taskEntity);
+    
+    // Redirect back to the recipe HTML page
+    // TODO: Make this work with every recipe page when extra time(store the current page address)
     response.sendRedirect("/recipe-1.html");
   }
 
