@@ -32,17 +32,14 @@ fetch('footer.html')
  * Fetches stats from the servers and adds them to the DOM.
  */
 function getData() {
-  fetch('/data').then(response => response.json()).then((names) => {
+  fetch('/data').then(response => response.json()).then((comments) => {
     // reference its fields to create HTML content
-    console.log(names);
-    const dataListElement = document.getElementById('data-container');//
+    const dataListElement = document.getElementById('data-container');
     dataListElement.innerHTML = '';
-    dataListElement.appendChild(
-        createListElement(names[0]));
-    dataListElement.appendChild(
-        createListElement(names[1]));
-    dataListElement.appendChild(
-        createListElement(names[2]));
+    var i;
+    for (i = 0; i < comments.length; i++) {
+      dataListElement.appendChild(createListElement(comments[i]));
+    }
   });
 }
 

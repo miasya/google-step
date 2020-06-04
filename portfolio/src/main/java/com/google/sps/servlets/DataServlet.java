@@ -13,13 +13,11 @@
 // limitations under the License.
  
 package com.google.sps.servlets;
- 
+
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
- 
-import com.google.gson.Gson;
-
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,21 +27,21 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
  
-  private List<String> names;
+  private List<String> comments;
  
   @Override
   public void init() {
-    names = new ArrayList<>();
-    names.add("Hypatia");
-    names.add("Lovelace");
-    names.add("Nightingale");
+    comments = new ArrayList<>();
+    comments.add("Hypatia");
+    comments.add("Lovelace");
+    comments.add("Nightingale");
   }
  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
  
     // Convert to JSON
-    String json = convertToJsonUsingGson(names);
+    String json = convertToJsonUsingGson(comments);
  
     // Send the JSON as the response
     response.setContentType("application/json;");
@@ -54,9 +52,9 @@ public class DataServlet extends HttpServlet {
    * Converts an object instance into a JSON string using the Gson library. Note: We first added
    * the Gson library dependency to pom.xml.
    */
-  private String convertToJsonUsingGson(List names) {
+  private String convertToJsonUsingGson(List comments) {
     Gson gson = new Gson();
-    String json = gson.toJson(names);
+    String json = gson.toJson(comments);
     return json;
   }
 }
