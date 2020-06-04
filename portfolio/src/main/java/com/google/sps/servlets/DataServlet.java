@@ -35,28 +35,32 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
  
   private List<String> comments;
- 
-  @Override
-  public void init() {
-    comments = new ArrayList<>();
-  }
- 
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     
-    // specify desired entity from datastore
+    // Specify desired entity from datastore
     Query query = new Query("Task").addSort("timestamp", SortDirection.DESCENDING);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Return all comments
+    // Check all entities returned and store the relevant ones in comments
+    comments = new ArrayList<>();
+
     for (Entity entity : results.asIterable()) {
+
+      // All fields of entity
+      // TODO: Use the timestamp field and show the time the comment was posted
       long id = entity.getKey().getId();
       String text = (String) entity.getProperty("text");
       long timestamp = (long) entity.getProperty("timestamp");
+      String commentPage = (String) entity.getProperty("page");
 
-      // TODO: add timestamp and other fields later
-      comments.add(text);
+      // Only show comments on that recipe
+      String currentPage = request.getHeader("referer").replace("\n", "");
+      if (commentPage.equals(currentPage)){
+        comments.add(text);
+      }
     }
 
     // Convert to JSON
@@ -88,13 +92,13 @@ public class DataServlet extends HttpServlet {
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("text", text);
     taskEntity.setProperty("timestamp", timestamp);
+    taskEntity.setProperty("page", request.getHeader("referer"));
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
     
-    // Redirect back to the recipe HTML page
-    // TODO: Make this work with every recipe page when extra time(store the current page address)
-    response.sendRedirect("/recipe-1.html");
+    // Redirect back to the recipe HTML page it came from
+    response.sendRedirect(request.getHeader("referer"));
   }
 
   /**
