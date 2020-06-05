@@ -29,6 +29,15 @@ fetch('footer.html')
   });
 
 /**
+ * Allows user to log in using Google's User API (see LoginServlet.java)
+ */
+function userLogin() {
+  fetch('/login').then(response => response.innerHTML()).then((message) => {
+    // TODO: Migrate login greeting to a new page
+    });
+}
+
+/**
  * Fetches comments from the servers and adds them to the DOM.
  */
 function getComments() {
