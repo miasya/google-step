@@ -24,7 +24,8 @@
           <li>Peas</li>
           <li>Corn</li>
           <li>Carrots, chopped</li>
-          <li>Salt</li>
+          <li>Bean sprouts</li>
+          <li>Salt, Bean Paste, Hoisin Sauce</li>
         </ul>
         <h2>Steps</h2>
         <ul>
@@ -38,17 +39,21 @@
         <!-- TODO: Add button that navigates to random recipe -->
 
         <!-- TODO: Potentially add nested div level of elements to store one comment at a time -->
-        <button onclick="getComments()">Click to update comments list</button>
+        <h2>Comments</h2>
         <div id="comments-container">No comments to date</div>
+        <button onclick="getComments()">Click to update comments</button>
+        <br></br>
+        
 
         <!-- Form to add comments via POST request -->
-        <h2>Add a comment</h2>
+        <h3>Add a comment</h3>
         <form action="/data" method="POST">
           <p>Enter your comment below</p>
           <textarea name="text-input">...</textarea>
-          <br/><br/>
+          <br/>
           <input type="submit" />
         </form>
+        <br></br>
 
       </body>
 
