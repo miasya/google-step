@@ -83,8 +83,8 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-    // Get the input from the form and a currenttimestamp
+
+    // Get the input from the form and a current timestamp
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
 

@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/login-status")
+public class LoginStatusServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -32,17 +32,15 @@ public class LoginServlet extends HttpServlet {
     // Get reference to UserService
     UserService userService = UserServiceFactory.getUserService();
 
-    // Check if user is logged in - if so, get email address and log them out
+    // Return json response according to whether the user is logged in or not
     if (userService.isUserLoggedIn()) {
 
-      String urlToRedirectToAfterUserLogsOut = "/";
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
-      response.sendRedirect(logoutUrl);
+      //TODO: Add email address in json as well using userService.getCurrentUser().getEmail();
+      //TODO: Don't hardcore json using string formatting - use something better
+      response.getWriter().println("{\"login\":\"yes\"}");
 
-    } else { // Else, redirect to google sign in page
-      String urlToRedirectToAfterUserLogsIn = "/";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
-      response.sendRedirect(loginUrl);
+    } else { 
+      response.getWriter().println("{\"login\":\"no\"}");
     }
   }
 }

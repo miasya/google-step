@@ -279,8 +279,11 @@ button:hover {
 
 #comments-container {
   background-color: var(--main-color-light);
-  font-family: Tahoma, sans-serif;
   margin-bottom: 5px;
+}
+
+#comments-container li {
+  border: 1px solid grey;
 }
 
 textarea {
