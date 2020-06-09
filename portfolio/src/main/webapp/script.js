@@ -11,8 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
-
+ 
 fetch('header.html')
   .then(response => {
     return response.text();
@@ -30,20 +29,45 @@ fetch('footer.html')
   });
 
 /**
+ * Fetches comments from the servers and adds them to the DOM.
+ */
+function getComments() {
+  fetch('/data').then(response => response.json()).then((comments) => {
+    // Reference its fields to create HTML content
+    const dataListElement = document.getElementById('comments-container');
+    dataListElement.innerHTML = '';
+    var i;
+    for (i = 0; i < comments.length; i++) {
+      console.log(i);
+      dataListElement.appendChild(
+        createListElement(comments[i]));
+    }
+  });
+}
+
+/** Creates an <li> element containing text. */
+function createListElement(text) {
+  const liElement = document.createElement('li');
+  liElement.innerText = text;
+  return liElement;
+}
+
+
+/**
  * Adds a random greeting to the page.
  */
 function addRandomGreeting() {
   const greetings =
       ['I will work soon I promise!', 'feature to be added!', 'not possible yet but just wait!'];
-
+ 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
+ 
   // Add it to the page.
   const greetingContainer = document.getElementById('greeting-container');
   greetingContainer.innerText = greeting;
 }
-
+ 
 /* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
 function navBar() {
   var x = document.getElementById("myTopnav");
@@ -53,21 +77,21 @@ function navBar() {
     x.className = "topnav";
   }
 }
-
+ 
 /* Slideshow functions */
 var slideIndex = 1;
 showSlides(slideIndex);
-
+ 
 // Next/previous controls
 function plusSlides(n) {
   showSlides(slideIndex += n);
 }
-
+ 
 // Thumbnail image controls
 function currentSlide(n) {
   showSlides(slideIndex = n);
 }
-
+ 
 function showSlides(n) {
   var i;
   var slides = document.getElementsByClassName("mySlides");
@@ -83,16 +107,16 @@ function showSlides(n) {
   slides[slideIndex-1].style.display = "block";
   dots[slideIndex-1].className += " active";
 }
-
-
+ 
+ 
 // Random word card display
 var wordIndex = 1;
-
+ 
 showRandomWord();
-
+ 
 function showRandomWord() {
   const wordList = ['Esoteric', 'Didactic', 'Sanguine'];
-
+ 
   wordIndex = Math.floor(Math.random() * wordList.length);
   
   // update word
@@ -103,12 +127,12 @@ function showRandomWord() {
   const defBox = document.getElementById('def-box');
   defBox.innerText = '';
 }
-
+ 
 function showDef() {
   const defList = ['mysterious, obscure\nA couple of months ago, XYZ submitted a thesis with their analysis and computations — a fairly esoteric mathematical dissent about how best to gather rational generalizations on the origin of the universe theory.',
     'intended to teach, educational\nThough more didactic, XYZ’s story of the triumph over evil quite powerful and enchanting.',
     'optimistic or positive\nAmong those who remain sanguine about the nation’s economic revival, there is always the lively topic of tax reduction policies.'];
-
+ 
   const defBox = document.getElementById('def-box');
   defBox.innerText = defList[wordIndex];
 }

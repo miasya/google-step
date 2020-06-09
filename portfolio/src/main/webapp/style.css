@@ -31,6 +31,7 @@ a {
 #webpage {
   background-image: linear-gradient(to bottom right, var(--background-color-1), var(--background-color-2));
   color: black;
+  font-family: Noto Sans, sans-serif;
   min-height: 100vh;
   min-width: 100vw;
 }
@@ -206,6 +207,10 @@ a {
   to {opacity: 1}
 }
 
+#section-one {
+  border-top: 1px solid #b3ecec86
+}
+
 /* **************** */
 /* Row col styling  */
 .row {
@@ -263,10 +268,6 @@ div.desc {
 
 button {
   background-color: var(--accent-color);
-  border: 1px solid grey;
-  border-radius: 2px;
-  box-shadow: 0px 0px 2px grey;
-  font-size: 16px;
   margin: auto;
   padding: 5px 5px;
   transition-duration: 0.1s;
@@ -274,6 +275,23 @@ button {
 
 button:hover {
   background-color: var(--accent-color-dark);
+}
+
+#comments-container {
+  background-color: var(--main-color-light);
+  font-family: Tahoma, sans-serif;
+  margin-bottom: 5px;
+}
+
+textarea {
+  border: 1px solid var(--accent-color-dark);
+  font-family: Tahoma, sans-serif;
+  min-height: 50px;
+  width: 100%;
+}
+
+input {
+  background-color: var(--main-color-light);
 }
 
 #cue-card {
