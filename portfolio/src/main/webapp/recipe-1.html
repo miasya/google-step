@@ -13,7 +13,7 @@
 
       <header></header>
 
-      <body>
+      <body onload="getComments()">
         <h1>Friend Tom Nitio's Eggrolls</h1>
         <img src="./images/eggrolls.jpg" alt="Food" width="60%"></img>
         <p>Tom Nitio's family was one of nanny and grandpa's first family friends when they made their move to Ottawa. Every summer, our family dedicates an entire day to make 100+ of these delicious eggrolls to enjoy. Can be frozen for long periods of time, and kept to satify cravings whenever desired!
@@ -25,7 +25,8 @@
           <li>1 can waterchestnuts, drained and chopped</li>
           <li>1 can bamboo shoots, drained and chopped</li>
           <li>2 packs eggroll wraps</li>
-          <li>Sauces and salt to taste</li>
+          <li>Bean sprouts</li>
+          <li>Salt, Bean Paste, Hoisin Sauce</li>
         </ul>
         <h2>Steps</h2>
         <ul>
@@ -42,13 +43,12 @@
         <!-- TODO: Potentially add nested div level of elements to store one comment at a time -->
         <h2>Comments</h2>
         <div id="comments-container">No comments to date</div>
-        <button onclick="getComments()">Click to update comments</button>
         <br></br>
 
         <!-- Form to add comments via POST request -->
         <h3>Add a comment</h3>
         <form action="/data" method="POST">
-          <p>Enter your comment below</p>
+          <p>Enter your comment below (must be logged in)</p>
           <textarea name="text-input">...</textarea>
           <br/>
           <input type="submit" />

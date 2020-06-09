@@ -45,10 +45,6 @@ function getLoginStatus() {
   });
 }
 
-
-
-
-
 /**
  * Fetches comments from the servers and adds them to the DOM.
  */
@@ -61,17 +57,32 @@ function getComments() {
     for (i = 0; i < comments.length; i++) {
       console.log(i);
       dataListElement.appendChild(
-        createListElement(comments[i]));
+        createCommentElement(comments[i]));
     }
   });
 }
 
 /** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
+function createCommentElement(comment) {
+
+  const nicknameElement = document.createElement('h4');
+  nicknameElement.innerHTML = comment.nickname + " at " + comment.timeString " Eastern";
+  
+
+  //const timeElement = document.createElement('h4');
+  //timeElement.innerHTML = ;
+
+  const textElement = document.createElement('p');
+  textElement.innerHTML = comment.text;
+ 
+  var divElement = document.createElement('div');
+  divElement.appendChild(nicknameElement);
+  //divElement.appendChild(timeElement)
+  divElement.appendChild(textElement);
+
+  return divElement;
 }
+
 
 
 /**

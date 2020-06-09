@@ -278,17 +278,17 @@ button:hover {
 }
 
 #comments-container {
-  background-color: var(--main-color-light);
-  margin-bottom: 5px;
+  padding: 4px;
 }
 
-#comments-container li {
-  border: 1px solid grey;
+#comments-container div {
+  border: 1px solid var(--main-color);
+  margin: 4px;
+  padding: 4px;
 }
 
 textarea {
   border: 1px solid var(--accent-color-dark);
-  font-family: Tahoma, sans-serif;
   min-height: 50px;
   width: 100%;
 }

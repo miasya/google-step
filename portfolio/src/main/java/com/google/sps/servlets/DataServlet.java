@@ -21,10 +21,15 @@ import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.users.UserService;
+import com.google.appengine.api.users.UserServiceFactory;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Date;
+import java.util.TimeZone;
+import java.text.SimpleDateFormat;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +39,47 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
  
-  private List<String> comments;
+  public class Comment {
+    long id;
+    String page;
+    String text;
+    String nickname;
+    String timeString;
+
+    // Necessary to implement delete query functionality *soon*
+    public void setId(long id){
+      this.id = id;
+    }
+
+    // Webpage where comment originated
+    public void setPage(String page){
+      this.page = page;
+    }
+
+    // Inner contents of the comment
+    public void setText(String text) {
+      this.text = text;
+    }
+
+    // Don't want to return the entire email for privacy reasons
+    public void setNickname(String email) {
+      if (email != null && email.length() > 6){
+        this.nickname = email.substring(0, 6);
+      } else {
+        this.nickname = "Unknown";
+      }
+    }
+
+    // Use timestamp to create a human-friendly timeString
+    public void setTimeString(long timestamp) {
+      Date time = new Date(timestamp);
+      SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+      dateFormat.setTimeZone(TimeZone.getTimeZone("Canada/Eastern"));
+      this.timeString = dateFormat.format(time);
+    }
+  }
+
+  public List<Comment> comments;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -44,23 +89,26 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Check all entities returned and store the relevant ones in comments
     comments = new ArrayList<>();
 
+    // Check all entities returned and store the relevant ones in comments
     for (Entity entity : results.asIterable()) {
 
-      // All fields of entity
-      // TODO: Use the timestamp field and show the time the comment was posted
-      long id = entity.getKey().getId();
-      String text = (String) entity.getProperty("text");
-      long timestamp = (long) entity.getProperty("timestamp");
+      // Skip all comments that belong to other pages
       String commentPage = (String) entity.getProperty("page");
-
-      // Only show comments on that recipe
       String currentPage = request.getHeader("referer").replace("\n", "");
-      if (commentPage.equals(currentPage)){
-        comments.add(text);
+      if (!commentPage.equals(currentPage)){
+        continue;
       }
+
+      Comment newComment = new Comment();
+      newComment.setPage((String) entity.getProperty("page"));
+      newComment.setId(entity.getKey().getId());
+      newComment.setText((String) entity.getProperty("text"));
+      newComment.setNickname((String) entity.getProperty("email"));
+      newComment.setTimeString((long) entity.getProperty("timestamp"));
+
+      comments.add(newComment);
     }
 
     // Convert to JSON
@@ -84,17 +132,29 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
+    UserService userService = UserServiceFactory.getUserService();
+
+    // Only logged-in users can post messages
+    if (!userService.isUserLoggedIn()) {
+      String loginUrl = userService.createLoginURL(request.getHeader("referer"));
+      response.sendRedirect(loginUrl);
+      return;
+    }
+
     // Get the input from the form and a current timestamp
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
+    String email = userService.getCurrentUser().getEmail();
 
     // Save as entity in Datastore
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("text", text);
+    taskEntity.setProperty("email", email);
     taskEntity.setProperty("timestamp", timestamp);
     taskEntity.setProperty("page", request.getHeader("referer"));
 
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(taskEntity);
     
     // Redirect back to the recipe HTML page it came from

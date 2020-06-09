@@ -13,8 +13,8 @@
 
       <header></header>
 
-      <body>
-        <h1>Lifeng's Famous Stir-Fried Rice</h1>
+      <body onload="getComments()">
+        <h1>Lifeng's Stir-Fried Rice</h1>
         <img src="./images/rice.jpg" alt="Rice" width="60%"></img>
         <p>Simple but flavourful dish to bring to any potluck. This dish takes a spin on the classic Chinese Stir-Fried rice by incorporating Canadian ingredients and flavours. We always prepare this dish for family gatherings because it's so good!</p>
         <h2>Ingredients</h2>
@@ -24,8 +24,7 @@
           <li>Peas</li>
           <li>Corn</li>
           <li>Carrots, chopped</li>
-          <li>Bean sprouts</li>
-          <li>Salt, Bean Paste, Hoisin Sauce</li>
+          <li>Salt</li>
         </ul>
         <h2>Steps</h2>
         <ul>
@@ -41,14 +40,13 @@
         <!-- TODO: Potentially add nested div level of elements to store one comment at a time -->
         <h2>Comments</h2>
         <div id="comments-container">No comments to date</div>
-        <button onclick="getComments()">Click to update comments</button>
         <br></br>
         
 
         <!-- Form to add comments via POST request -->
         <h3>Add a comment</h3>
         <form action="/data" method="POST">
-          <p>Enter your comment below</p>
+          <p>Enter your comment below (must be logged in)</p>
           <textarea name="text-input">...</textarea>
           <br/>
           <input type="submit" />
