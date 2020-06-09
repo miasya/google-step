@@ -27,7 +27,7 @@ public class LoginStatusServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    response.setContentType("application/json");
+    response.setContentType("text/html");
 
     // Get reference to UserService
     UserService userService = UserServiceFactory.getUserService();
@@ -37,10 +37,10 @@ public class LoginStatusServlet extends HttpServlet {
 
       //TODO: Add email address in json as well using userService.getCurrentUser().getEmail();
       //TODO: Don't hardcore json using string formatting - use something better
-      response.getWriter().println("{\"login\":\"yes\"}");
+      response.getWriter().println("Logout");
 
     } else { 
-      response.getWriter().println("{\"login\":\"no\"}");
+      response.getWriter().println("Login");
     }
   }
 }

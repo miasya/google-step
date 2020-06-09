@@ -35,12 +35,12 @@ public class LoginServlet extends HttpServlet {
     // Check if user is logged in - if so, get email address and log them out
     if (userService.isUserLoggedIn()) {
 
-      String urlToRedirectToAfterUserLogsOut = "/";
+      String urlToRedirectToAfterUserLogsOut = request.getHeader("referer");
       String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
       response.sendRedirect(logoutUrl);
 
     } else { // Else, redirect to google sign in page
-      String urlToRedirectToAfterUserLogsIn = "/";
+      String urlToRedirectToAfterUserLogsIn = request.getHeader("referer");
       String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
       response.sendRedirect(loginUrl);
     }

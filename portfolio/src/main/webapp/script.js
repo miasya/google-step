@@ -38,10 +38,9 @@ function userLogin() {
 }
 
 function getLoginStatus() {
-  fetch('/login-status').then(response => response.json()).then((msg) => {
-    const loginContainer = document.getElementById('login-container');
-    const loginStatus = msg.login;
-    loginContainer.innerText = loginStatus;
+  fetch('/login-status').then(response => response.text()).then((msg) => {
+    const loginContainer = document.getElementById('login');
+    loginContainer.innerText = msg;
   });
 }
 
@@ -77,8 +76,6 @@ function createCommentElement(comment) {
 
   return divElement;
 }
-
-
 
 /**
  * Adds a random greeting to the page.
