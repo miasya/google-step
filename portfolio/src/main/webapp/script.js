@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
- 
+
 fetch('header.html')
   .then(response => {
     return response.text();
@@ -159,4 +159,13 @@ function showDef() {
  
   const defBox = document.getElementById('def-box');
   defBox.innerText = defList[wordIndex];
+}
+
+
+function initMap() {
+  var map;
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -34.397, lng: 150.644},
+    zoom: 8
+  });
 }

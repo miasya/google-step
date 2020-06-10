@@ -310,6 +310,10 @@ input {
   font-weight: bold;
 }
 
+#map {
+  height: 480px;
+}
+
 /* **************** */
 footer {
   border-top: 2px solid var(--main-color);
