@@ -16,7 +16,7 @@
 
       <header></header>
 
-      <body onload="getLoginStatus()">
+      <body onload="getLoginStatus(); initMap()">
 
         <!-- Introduction -->
         <h1>Family Recipes</h1>
@@ -130,12 +130,12 @@
         <!-- TODO: Add button that navigates to random recipe -->
 
         <br></br>
-        <!-- Ottawa Image -->
+        <!-- Ottawa MAP -->
         <div>
-          <h2>Made with 💜</h2>
-          <a target="_blank" href="../images/ottawa.jpg">
-            <img src="../images/ottawa.jpg" alt="Ottawa" width="30%"></img>
-          </a>
+          <h2>Made with 💜 in Ottawa</h2>
+          <div id="map"></div>
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAoB-uwbYwLEwGbsMa4nRlEcWYssWZio7g&callback=initMap"
+          async defer></script>
           <br></br>
         </div>
       </body>
