@@ -161,11 +161,19 @@ function showDef() {
   defBox.innerText = defList[wordIndex];
 }
 
-
+// Initialize and add the map
 function initMap() {
+
+  // The location of Ottawa
+  var ottawa = {lat: 45.4215, lng: -75.6972};
+  
+  // The map, centered at Ottawa
   var map;
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
-    zoom: 8
+    center: ottawa,
+    zoom: 4
   });
+
+  // The marker, positioned at Ottawa
+  var marker = new google.maps.Marker({position: ottawa, map: map});
 }
