@@ -14,6 +14,7 @@
 
 package com.google.sps;
 
+import java.lang.Math;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -21,18 +22,28 @@ import java.util.Collections;
 import com.google.sps.TimeRange;
 
 public final class FindMeetingQuery {
+
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     
-    Collection<TimeRange> blockedTimes = new ArrayList<TimeRange>();
+    ArrayList<TimeRange> freeTimes = new ArrayList<TimeRange>();
+
+    // Initialize freeTimes with all 30 minute blocks since requests and events will only be
+    // in chunks of 30 minutes (for more granularity, make it a day full of 1 min blocks)
+    int blockLength = 30;
+    int blocks[] = {0, 30};
+
+    for (int i = 0; i < 24; i++){
+      for (int b : blocks){
+        //
+        int startTime = TimeRange.getTimeInMinutes(i, b);
+        freeTimes.add(TimeRange.fromStartDuration(startTime, blockLength));
+      }
+    }
 
     // Get important request information
     Collection<String> attendees = request.getAttendees();
-    long duration = request.getDuration();
-
-    // Base case: No attendees:
-    if (attendees.size() == 0){
-
-    }
+    long meetingDuration = request.getDuration();
 
     // For all events in event
     for (Event e : events){
@@ -42,41 +53,42 @@ public final class FindMeetingQuery {
       eventAttendees.retainAll(attendees);
       if (eventAttendees.size() != 0){
 
-        // Insert the time to list of blockTimes
-        eventTime = e.getWhen();
-
-        for (TimeRange t : blockedTimes){
-          // if overlap, check if start or duration of blocked region grows
-          
-          // if need to adjust start time
-          if (eventTime.getStartTime() + eventTime.getDuration() > t.getStartTime()){
-            
-            blockedTimes.add(TimeRange.fromStartEnd(eventTime.getStartTime(), t.getStartTime() + t.getDuration(), false));
-            // remove t in a safer way than blockedTimes.remove(t); cause iterating
-          }
-
-          // if need to adjust end time
-          if (){
-
-          }
-
-          // if no overlap, don't merge, just add it
-          if (){
-            blockedTimes.add(eventTime);
-          }
-        }
+        // Remove from list of free times
+        TimeRange eventTime = e.getWhen();
+        System.out.println(eventTime);
+        
+        
+        // TODO: make sure it works for multiples of 30 mins
+        
+        freeTimes.remove(eventTime);
 
       }
     }
+    
 
-    // Sort by start time (not the most efficient, but works for our purposes)
-    //Collections.sort(blockedTimes);
-
-
-    // Look through all possible times for a duration of sufficient length
     Collection<TimeRange> meetingTimes = new ArrayList<TimeRange>();
 
-    // take difference?
+    // TODO: Merge consecutive times blocks
+    while (freeTimes.size() != 0) {
+      System.out.println("next block");
+      int i = 1;
+
+      // Run until disconnect
+      while (i < freeTimes.size() && freeTimes.get(i-1).end() == freeTimes.get(i).start()){
+        i++;
+      }
+
+      // TODO: Filter out the ones that are too short
+      meetingTimes.add(TimeRange.fromStartEnd(freeTimes.get(0).start(), freeTimes.get(i-1).end(), false));
+      for (int j = 0; j < i; j++){
+        System.out.println("removing " + freeTimes.get(0));
+        freeTimes.remove(0);
+      }
+    }
+
+    
+
+
 
     // Return meeting times (could be empty)
     return meetingTimes;
