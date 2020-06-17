@@ -22,75 +22,73 @@ import java.util.Collections;
 import com.google.sps.TimeRange;
 
 public final class FindMeetingQuery {
-
-
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     
-    ArrayList<TimeRange> freeTimes = new ArrayList<TimeRange>();
-
     // Initialize freeTimes with all 30 minute blocks since requests and events will only be
     // in chunks of 30 minutes (for more granularity, make it a day full of 1 min blocks)
+    ArrayList<TimeRange> freeTimes = new ArrayList<TimeRange>();
+
     int blockLength = 30;
     int blocks[] = {0, 30};
 
     for (int i = 0; i < 24; i++){
       for (int b : blocks){
-        //
         int startTime = TimeRange.getTimeInMinutes(i, b);
         freeTimes.add(TimeRange.fromStartDuration(startTime, blockLength));
       }
     }
 
     // Get important request information
-    Collection<String> attendees = request.getAttendees();
+    Collection<String> meetingAttendees = request.getAttendees();
     long meetingDuration = request.getDuration();
 
-    // For all events in event
+    // Consider all events
     for (Event e : events){
 
-      // Check if at least one request attendee is an event attendee, otherwise skip event
+      // Check if the event has at least one meetingAttendee (otherwise just skip the event)
       ArrayList<String> eventAttendees = new ArrayList<String>(e.getAttendees());
-      eventAttendees.retainAll(attendees);
+      eventAttendees.retainAll(meetingAttendees);
+
       if (eventAttendees.size() != 0){
 
-        // Remove from list of free times
+        // Remove all busy time blocks (those in the event) from list of free times
         TimeRange eventTime = e.getWhen();
-        System.out.println(eventTime);
-        
-        
-        // TODO: make sure it works for multiples of 30 mins
-        
-        freeTimes.remove(eventTime);
-
+        int numBlocks = eventTime.duration() / blockLength;
+        for (int i = 0; i < numBlocks; i++){
+          freeTimes.remove(TimeRange.fromStartDuration(eventTime.start() + i * blockLength, blockLength));
+        }
       }
     }
     
-
+    // Now we merge consecutive freetimes of size blockLength to give big ranges
+    // As well as eliminate blocks of free time too small to accomodate the request
     Collection<TimeRange> meetingTimes = new ArrayList<TimeRange>();
 
-    // TODO: Merge consecutive times blocks
+    // Merge consecutive times blocks
     while (freeTimes.size() != 0) {
       System.out.println("next block");
       int i = 1;
 
-      // Run until disconnect
+      // Run until there are not consecutive
       while (i < freeTimes.size() && freeTimes.get(i-1).end() == freeTimes.get(i).start()){
         i++;
       }
 
-      // TODO: Filter out the ones that are too short
-      meetingTimes.add(TimeRange.fromStartEnd(freeTimes.get(0).start(), freeTimes.get(i-1).end(), false));
+      // Now we have a potential uninterrupted time block to add
+      TimeRange potentialTime = TimeRange.fromStartEnd(freeTimes.get(0).start(), freeTimes.get(i-1).end(), false);
+
+      // Verify that the timeblock is long enough before adding it as a potential meeting time
+      if (potentialTime.duration() >= meetingDuration){
+        meetingTimes.add(potentialTime);
+      }
+
+      // Move onto the next free times
       for (int j = 0; j < i; j++){
-        System.out.println("removing " + freeTimes.get(0));
         freeTimes.remove(0);
       }
     }
 
-    
-
-
-
-    // Return meeting times (could be empty)
+    // Return all possible meeting times (could be empty)
     return meetingTimes;
   }
 }
