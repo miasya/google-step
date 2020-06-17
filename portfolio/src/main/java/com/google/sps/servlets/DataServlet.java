@@ -40,11 +40,11 @@ import javax.servlet.http.HttpServletResponse;
 public class DataServlet extends HttpServlet {
  
   public class Comment {
-    long id;
-    String page;
-    String text;
-    String nickname;
-    String timeString;
+    private long id;
+    private String page;
+    private String text;
+    private String nickname;
+    private String timeString;
 
     public Comment(String page, long id, String text, String emailAddress, long timestamp) {
       this.page = page;
