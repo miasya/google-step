@@ -46,32 +46,19 @@ public class DataServlet extends HttpServlet {
     String nickname;
     String timeString;
 
-    // Necessary to implement delete query functionality *soon*
-    public void setId(long id){
-      this.id = id;
-    }
-
-    // Webpage where comment originated
-    public void setPage(String page){
+    public Comment(String page, long id, String text, String emailAddress, long timestamp) {
       this.page = page;
-    }
-
-    // Inner contents of the comment
-    public void setText(String text) {
+      this.id = id;
       this.text = text;
-    }
-
-    // Don't want to return the entire email for privacy reasons
-    public void setNickname(String email) {
-      if (email != null && email.length() > 6){
-        this.nickname = email.substring(0, 6);
+      
+      // Don't store entire email for privacy reasons
+      if (emailAddress != null && emailAddress.length() > 6){
+        this.nickname = emailAddress.substring(0, 6);
       } else {
         this.nickname = "Unknown";
       }
-    }
 
-    // Use timestamp to create a human-friendly timeString
-    public void setTimeString(long timestamp) {
+      // Use timestamp to create a human-friendly timeString
       Date time = new Date(timestamp);
       SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
       dateFormat.setTimeZone(TimeZone.getTimeZone("Canada/Eastern"));
@@ -101,13 +88,11 @@ public class DataServlet extends HttpServlet {
         continue;
       }
 
-      Comment newComment = new Comment();
-      newComment.setPage((String) entity.getProperty("page"));
-      newComment.setId(entity.getKey().getId());
-      newComment.setText((String) entity.getProperty("text"));
-      newComment.setNickname((String) entity.getProperty("email"));
-      newComment.setTimeString((long) entity.getProperty("timestamp"));
-
+      Comment newComment = new Comment((String) entity.getProperty("page"),
+                                      entity.getKey().getId(),
+                                      (String) entity.getProperty("text"),
+                                      (String) entity.getProperty("emailAddress"),
+                                      (long) entity.getProperty("timestamp"));
       comments.add(newComment);
     }
 
@@ -144,14 +129,14 @@ public class DataServlet extends HttpServlet {
     // Get the input from the form and a current timestamp
     String text = request.getParameter("text-input");
     long timestamp = System.currentTimeMillis();
-    String email = userService.getCurrentUser().getEmail();
+    String emailAddress = userService.getCurrentUser().getEmail();
 
     // Save as entity in Datastore
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
     Entity taskEntity = new Entity("Task");
     taskEntity.setProperty("text", text);
-    taskEntity.setProperty("email", email);
+    taskEntity.setProperty("emailAddress", emailAddress);
     taskEntity.setProperty("timestamp", timestamp);
     taskEntity.setProperty("page", request.getHeader("referer"));
 
