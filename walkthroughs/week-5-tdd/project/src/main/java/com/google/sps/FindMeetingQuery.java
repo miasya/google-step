@@ -24,12 +24,48 @@ import com.google.sps.TimeRange;
 public final class FindMeetingQuery {
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
     
+
+    // TODO: ADD MORE COMMENTS
+    // TODO: Fix addAll method bug
+
+
+    // Get important request information
+    Collection<String> allAttendees = request.getAttendees();
+    allAttendees.addAll(request.getOptionalAttendees());
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    long meetingDuration = request.getDuration();
+    
+    // First consider that all optional attendees are actually requires, and see if
+    // possible times can be found. If no free times, exclude optional and return meeting times
+    ArrayList<TimeRange> freeTimes = new ArrayList<TimeRange>();
+    Collection<TimeRange> meetingTimes = new ArrayList<TimeRange>();
+
+    populateFreeTimes(freeTimes, 30);
+    removeBusyTimes(freeTimes, events, allAttendees, 30);
+    updateMeetingTimes(meetingTimes, freeTimes, meetingDuration);
+    
+    // Verify that there is at least one potential meeting time with all attendees
+    if (meetingTimes.size() != 0) {
+      return meetingTimes;
+    }
+
+    // Consider only mandatory attendees
+    populateFreeTimes(freeTimes, 30);
+    removeBusyTimes(freeTimes, events, mandatoryAttendees, 30);
+    updateMeetingTimes(meetingTimes, freeTimes, meetingDuration);
+    return meetingTimes;
+  }
+
+
+  private void populateFreeTimes (ArrayList<TimeRange> freeTimes, int blockLength) {
     // Initialize freeTimes with all 30 minute blocks since requests and events will only be
     // in chunks of 30 minutes (for more granularity, make it a day full of 1 min blocks)
-    ArrayList<TimeRange> freeTimes = new ArrayList<TimeRange>();
-
-    int blockLength = 30;
-    int blocks[] = {0, 30};
+    ArrayList<Integer> blocks = new ArrayList<Integer>();
+    for (int i = 0; i < 60; i++){
+      if (i % blockLength == 0){
+        blocks.add(i);
+      }
+    }
 
     for (int i = 0; i < 24; i++){
       for (int b : blocks){
@@ -37,11 +73,9 @@ public final class FindMeetingQuery {
         freeTimes.add(TimeRange.fromStartDuration(startTime, blockLength));
       }
     }
+  }
 
-    // Get important request information
-    Collection<String> meetingAttendees = request.getAttendees();
-    long meetingDuration = request.getDuration();
-
+  private void removeBusyTimes(ArrayList<TimeRange> freeTimes, Collection<Event> events, Collection<String> meetingAttendees, int blockLength){
     // Consider all events
     for (Event e : events){
 
@@ -59,11 +93,12 @@ public final class FindMeetingQuery {
         }
       }
     }
-    
+  }
+
+  private void updateMeetingTimes(Collection<TimeRange> meetingTimes, ArrayList<TimeRange> freeTimes, long meetingDuration){
     // Now we merge consecutive freetimes of size blockLength to give big ranges
     // As well as eliminate blocks of free time too small to accomodate the request
-    Collection<TimeRange> meetingTimes = new ArrayList<TimeRange>();
-
+    
     // Merge consecutive times blocks
     while (freeTimes.size() != 0) {
       System.out.println("next block");
@@ -87,8 +122,5 @@ public final class FindMeetingQuery {
         freeTimes.remove(0);
       }
     }
-
-    // Return all possible meeting times (could be empty)
-    return meetingTimes;
   }
 }
