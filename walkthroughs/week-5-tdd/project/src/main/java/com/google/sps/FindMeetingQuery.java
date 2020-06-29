@@ -22,17 +22,20 @@ import java.util.Collections;
 import com.google.sps.TimeRange;
 
 public final class FindMeetingQuery {
+
+  public static final int BLOCKLENGTH = 5;
+
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    /* Takes a meeting request that has mandatory attendees, optional attendees, and a duration
-     * then returns a sorted Collection of all possible TimeRanges of when the meeting could take place.
-     * 
-     * This function works by first initializing a list of free blocks of a certain length
-     * Then it goes through events and removes free blocks when they overlap with an event.
-     * It then merges the remaining consecutive free blocks so they're outputted as one
-     * longer continuous TimeRange and we can verify that they're at least the length of the
-     * requested duration. Note that the function first tries to include both optional and mandatory
-     * attendees, but if no time ranges are found, only mandatory attendees are considered (if any).
-     */
+    // Takes a meeting request that has mandatory attendees, optional attendees, and a duration
+    // then returns a sorted Collection of all possible TimeRanges of when the meeting could take place.
+    // 
+    // This function works by first initializing a list of free blocks of a certain length
+    // Then it goes through events and removes free blocks when they overlap with an event.
+    // It then merges the remaining consecutive free blocks so they're outputted as one
+    // longer continuous TimeRange and we can verify that they're at least the length of the
+    // requested duration. Note that the function first tries to include both optional and mandatory
+    // attendees, but if no time ranges are found, only mandatory attendees are considered (if any).
+    //
 
     // Get request information on attendees and duration
     Collection<String> allAttendees = new ArrayList<String>(request.getAttendees());
@@ -44,13 +47,11 @@ public final class FindMeetingQuery {
     ArrayList<TimeRange> freeTimes = new ArrayList<TimeRange>();
     Collection<TimeRange> meetingTimes = new ArrayList<TimeRange>();
 
-    // Initialize all free time blocks. Size 30 refers to the length of each block in minutes
-    // (ie. blocks are 12:00am, 12:30am, 1:00am etc) since we assume all events begin on the half hour
-    // Note that 15, 10, 5, 2, 1 minutes will all work but the granularity is not necessary
-    populateFreeTimes(freeTimes, 30);
+    // Populate freeTimes to hold TimeRanges representing non-overlapping time blocks in the day
+    populateFreeTimes(freeTimes);
 
     // Remove from freeTimes all the TimeRanges where an attendee has an event
-    removeBusyTimes(freeTimes, events, allAttendees, 30);
+    removeBusyTimes(freeTimes, events, allAttendees);
 
     // Make the remaining free blocks continuous and verify they are of minimum duration
     updateMeetingTimes(meetingTimes, freeTimes, meetingDuration);
@@ -64,40 +65,24 @@ public final class FindMeetingQuery {
     // Consider only mandatory attendees
     if (mandatoryAttendees.size() != 0) {
       freeTimes.clear();
-      populateFreeTimes(freeTimes, 30);
-      removeBusyTimes(freeTimes, events, mandatoryAttendees, 30);
+      populateFreeTimes(freeTimes);
+      removeBusyTimes(freeTimes, events, mandatoryAttendees);
       updateMeetingTimes(meetingTimes, freeTimes, meetingDuration);
     }
     return meetingTimes;
   }
 
-  private void populateFreeTimes (ArrayList<TimeRange> freeTimes, int blockLength) {
-    /* Populates FreeTimes with 1 day of blocks of size blockLength
-     * (i.e. blocklength 15 would mean 12:00am, 12:15am, 12:30am, 12:45am, etc)
-     * Note that blockLength must be a factor of 60 minutes or there may be unexpected behaviour.
-     */
-
-    // blocks holds all possible minutes value in the hour (ex: 0, 15, 30 if blockLength=15)
-    ArrayList<Integer> blocks = new ArrayList<Integer>();
-    for (int i = 0; i < 60; i++) {
-      if (i % blockLength == 0){
-        blocks.add(i);
-      }
-    }
-
-    // Save all TimeRanges
-    for (int i = 0; i < 24; i++) {
-      for (int b : blocks){
-        int startTime = TimeRange.getTimeInMinutes(i, b);
-        freeTimes.add(TimeRange.fromStartDuration(startTime, blockLength));
-      }
+  private void populateFreeTimes (ArrayList<TimeRange> freeTimes) {
+    // Initialize freeTimes to hold blocks of BLOCKLENGTH minutes for the entire day
+    // ex if BLOCKLENGTH = 5, times would be [12:00-12:05), [12:05-12:10), [12:10, 12:15)...
+    for (int i = 0; i < 24*60; i += BLOCKLENGTH) {
+      freeTimes.add(TimeRange.fromStartDuration(i, BLOCKLENGTH));
     }
   }
 
-  private void removeBusyTimes(ArrayList<TimeRange> freeTimes, Collection<Event> events, Collection<String> meetingAttendees, int blockLength) {
-    /* Updates freeTimes in place by removing all TimeRanges which overlap with events where
-     * at least one meeting attendee is attending.
-     */
+  private void removeBusyTimes(ArrayList<TimeRange> freeTimes, Collection<Event> events, Collection<String> meetingAttendees) {
+    // Updates freeTimes in place by removing all TimeRanges which overlap with events where
+    // at least one meeting attendee is attending.
     
     // Consider all events
     for (Event e : events){
@@ -109,18 +94,17 @@ public final class FindMeetingQuery {
 
         // Remove all busy time blocks (those in the event) from list of free times
         TimeRange eventTime = e.getWhen();
-        int numBlocks = eventTime.duration() / blockLength;
+        int numBlocks = eventTime.duration() / BLOCKLENGTH;
         for (int i = 0; i < numBlocks; i++) {
-          freeTimes.remove(TimeRange.fromStartDuration(eventTime.start() + i * blockLength, blockLength));
+          freeTimes.remove(TimeRange.fromStartDuration(eventTime.start() + i * BLOCKLENGTH, BLOCKLENGTH));
         }
       }
     }
   }
 
   private void updateMeetingTimes(Collection<TimeRange> meetingTimes, ArrayList<TimeRange> freeTimes, long meetingDuration){
-    /* Update meetingTimes in place by adding blocks of uninterrupted freeTimes of minimum length meetingDuration.
-     * This is done by merging continuous blocks of freeTime into one big range.
-     */
+    // Update meetingTimes in place by adding blocks of uninterrupted freeTimes of minimum length meetingDuration.
+    // This is done by merging continuous blocks of freeTime into one big range.
 
     // Merge consecutive times blocks
     while (freeTimes.size() != 0) {
