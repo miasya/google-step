@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
+  <script src="script.js"></script>
+
   <div class="topnav" id="myTopnav">
     <a href="index.html" class="active">Home</a>
-    <!--<a href="#login">Login</a> -->
+    <!-- Says "Login" by default, but when logged in, shows "Logout" -->
+    <a id="login" href="/login" onclick="userLogin()">Login</a>
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
 

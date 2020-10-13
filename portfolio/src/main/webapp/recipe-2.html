@@ -13,7 +13,7 @@
 
       <header></header>
 
-      <body>
+      <body onload="getComments(); getLoginStatus()">
         <h1>Nanny's Shortbread Cookies</h1>
         <img src="./images/shortbread.jpg" alt="Cookies" width="60%"></img>
         <p>Melt-in-your-mouth delicious cookies. We would make dozens and dozens of these throughout the holidays. Fun to decorate and the perfect gift for friends!</p>
@@ -39,13 +39,12 @@
         <!-- TODO: Potentially add nested div level of elements to store one comment at a time -->
         <h2>Comments</h2>
         <div id="comments-container">No comments to date</div>
-        <button onclick="getComments()">Click to update comments</button>
         <br></br>
 
         <!-- Form to add comments via POST request -->
         <h3>Add a comment</h3>
         <form action="/data" method="POST">
-          <p>Enter your comment below</p>
+          <p>Enter your comment below (must be logged in)</p>
           <textarea name="text-input">...</textarea>
           <br/>
           <input type="submit" />

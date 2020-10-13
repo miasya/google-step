@@ -11,7 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
- 
+
 fetch('header.html')
   .then(response => {
     return response.text();
@@ -29,6 +29,22 @@ fetch('footer.html')
   });
 
 /**
+ * Allows user to log in using Google's User API (see LoginServlet.java)
+ */
+function userLogin() {
+  fetch('/login').then(response => response.json()).then((msg) => {
+
+  });
+}
+
+function getLoginStatus() {
+  fetch('/login-status').then(response => response.text()).then((msg) => {
+    const loginContainer = document.getElementById('login');
+    loginContainer.innerText = msg;
+  });
+}
+
+/**
  * Fetches comments from the servers and adds them to the DOM.
  */
 function getComments() {
@@ -40,18 +56,26 @@ function getComments() {
     for (i = 0; i < comments.length; i++) {
       console.log(i);
       dataListElement.appendChild(
-        createListElement(comments[i]));
+        createCommentElement(comments[i]));
     }
   });
 }
 
 /** Creates an <li> element containing text. */
-function createListElement(text) {
-  const liElement = document.createElement('li');
-  liElement.innerText = text;
-  return liElement;
-}
+function createCommentElement(comment) {
 
+  const titleElement = document.createElement('h4');
+  titleElement.innerHTML = comment.nickname + " at " + comment.timeString + " Eastern";
+  
+  const textElement = document.createElement('p');
+  textElement.innerHTML = comment.text;
+ 
+  var divElement = document.createElement('div');
+  divElement.appendChild(titleElement);
+  divElement.appendChild(textElement);
+
+  return divElement;
+}
 
 /**
  * Adds a random greeting to the page.
@@ -135,4 +159,21 @@ function showDef() {
  
   const defBox = document.getElementById('def-box');
   defBox.innerText = defList[wordIndex];
+}
+
+// Initialize and add the map
+function initMap() {
+
+  // The location of Ottawa
+  var ottawa = {lat: 45.4215, lng: -75.6972};
+  
+  // The map, centered at Ottawa
+  var map;
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: ottawa,
+    zoom: 5
+  });
+
+  // The marker, positioned at Ottawa
+  var marker = new google.maps.Marker({position: ottawa, map: map});
 }
